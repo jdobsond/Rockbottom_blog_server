@@ -17,6 +17,8 @@ app.listen(4000, () => console.log("The port is running on port 4000"));
 // create a new post
 // delete a post
 // delete a user
+// edit a user
+// edit a post
 
 app.get("/users", (request, response) => {
   try {
@@ -74,6 +76,30 @@ app.get("/post", (request, response) => {
     let userName = request.query.userName;
     let post = posts.filter((el) => el.userName == userName);
     response.status(200).send(post);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+app.put("/post", (request, response) => {
+  try {
+    let id = request.query.id;
+    userName = request.body.userName;
+    title = request.body.title;
+    textBody = request.body.textBody;
+    image = request.body.image;
+    timeToRead = request.body.timeToRead;
+    timeCreated = request.body.timeCreated;
+    let newPost = {};
+    newPost.id = id;
+    newPost.userName = userName;
+    newPost.title = title;
+    newPost.textBody = textBody;
+    newPost.image = image;
+    newPost.timeToRead = timeToRead;
+    newPost.timeCreated = timeCreated;
+    posts = posts.map((post) => (post.id == id ? newPost : post));
+    response.status(200).send(posts);
   } catch (error) {
     response.status(500).send(error);
   }
