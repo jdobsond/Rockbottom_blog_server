@@ -1,7 +1,7 @@
 posts = [
   {
     id: 1,
-    userName: "CnorDakota",
+    userName: "CNorDakota",
     title: "Just moved to North Dakota",
     textBody: "beautiful place to live",
     image:

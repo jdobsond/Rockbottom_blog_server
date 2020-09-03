@@ -1,10 +1,12 @@
 let { users, getNextUserId } = require("./db/userDb");
 let { posts, getNextPostId } = require("./db/blogPosts");
 const express = require("express");
+const cors = require("cors");
 const { request, response } = require("express");
 const e = require("express");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -73,6 +75,7 @@ app.get("/user-by-id", (request, response) => {
 
 app.get("/post", (request, response) => {
   try {
+    console.log("get post worked");
     let userName = request.query.userName;
     let post = posts.filter((el) => el.userName == userName);
     response.status(200).send(post);
@@ -109,7 +112,10 @@ app.delete("/post", (request, response) => {
   try {
     let id = request.query.id;
     let filteredPosts = posts.filter((el) => el.id != id);
+    console.log(id);
+    console.log(filteredPosts);
     posts = filteredPosts;
+    console.log(posts);
     response.status(200).send(posts);
   } catch (error) {
     response.status(500).send(error);
