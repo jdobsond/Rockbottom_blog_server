@@ -2,8 +2,6 @@ let { users, getNextUserId } = require("./db/userDb");
 let { posts, getNextPostId } = require("./db/blogPosts");
 const express = require("express");
 const cors = require("cors");
-const { request, response } = require("express");
-const e = require("express");
 
 const app = express();
 app.use(cors());
@@ -75,7 +73,7 @@ app.get("/user-by-id", (request, response) => {
 
 app.get("/post", (request, response) => {
   try {
-    console.log("get post worked");
+    // console.log("get post worked");
     let userName = request.query.userName;
     let post = posts.filter((el) => el.userName == userName);
     response.status(200).send(post);
@@ -112,10 +110,10 @@ app.delete("/post", (request, response) => {
   try {
     let id = request.query.id;
     let filteredPosts = posts.filter((el) => el.id != id);
-    console.log(id);
-    console.log(filteredPosts);
+    // console.log(id);
+    // console.log(filteredPosts);
     posts = filteredPosts;
-    console.log(posts);
+    // console.log(posts);
     response.status(200).send(posts);
   } catch (error) {
     response.status(500).send(error);
@@ -147,6 +145,8 @@ app.post("/create-user", (request, response) => {
 
 app.post("/create-post", (request, response) => {
   try {
+    console.log("create post called");
+    console.log(request.body);
     let id = getNextPostId();
     userName = request.body.userName;
     title = request.body.title;
@@ -163,6 +163,7 @@ app.post("/create-post", (request, response) => {
       timeToRead: timeToRead,
       timeCreated: timeCreated,
     });
+    console.log(posts);
     response.status(200).send(posts);
   } catch (error) {
     response.status(500).send(error);
