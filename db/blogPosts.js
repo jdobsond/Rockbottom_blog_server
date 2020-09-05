@@ -57,8 +57,16 @@ posts = [
   },
 ];
 
+let nextId = 5;
+
+function incrementPostId() {
+  nextId = nextId + 1;
+}
+
 function getNextPostId() {
-  return posts[posts.length - 1].id + 1;
+  // return posts[posts.length - 1].id + 1;
+  incrementPostId();
+  return nextId;
 }
 
 module.exports = { posts, getNextPostId };

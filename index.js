@@ -28,6 +28,14 @@ app.get("/users", (request, response) => {
   }
 });
 
+app.get("/posts", (request, response) => {
+  try {
+    response.status(200).send(posts);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 app.delete("/user", (request, response) => {
   try {
     let id = request.query.id;
@@ -76,6 +84,18 @@ app.get("/post", (request, response) => {
     // console.log("get post worked");
     let userName = request.query.userName;
     let post = posts.filter((el) => el.userName == userName);
+    response.status(200).send(post);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+app.get("/post-by-id", (request, response) => {
+  try {
+    // console.log("get post worked");
+    let id = request.query.id;
+    // let post = posts.filter((el) => el.id == id)[0];
+    let post = posts.find((el) => el.id == id);
     response.status(200).send(post);
   } catch (error) {
     response.status(500).send(error);
